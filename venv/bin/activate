@@ -46,7 +46,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/bcullen/Documents/MyFive/myfive_flask/venv"
+VIRTUAL_ENV="/Users/bcullen/Documents/myfive_flask/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
