@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>My Five</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">Login</h1>
+    <div class="form">
+        <form method="POST">
+          <div>
+            {{form.email.label}}
+          </div>
+          <div>
+            {{form.email}}
+          </div>
+          <div>
+            {{form.password.label}}
+          </div>
+          <div>
+            {{form.password}}
+          </div>
+          <div class="submitbutton">
+            <input id="submit" type="submit" value="Submit">
+          </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
