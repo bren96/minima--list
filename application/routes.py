@@ -13,6 +13,9 @@ def load_user(user_id):
         return User.query.get(user_id)
     return None
 
+@app.route('/')
+def base():
+    return redirect('/login')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
