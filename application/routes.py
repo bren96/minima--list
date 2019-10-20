@@ -41,7 +41,7 @@ def login():
         user = User.query.filter(User.username == request.form['email']).first()
         if user.password == request.form['password']:
             login_user(user)
-            return 'You are logged in!' # redirect('/dashboard')
+            return redirect('/dashboard')
     return render_template('login.html', form=login_form)
 
 
