@@ -49,7 +49,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return 'You are logged out'
+    return redirect('/login')
 
 @app.route('/dashboard', methods=['POST', 'GET'])
 @login_required
