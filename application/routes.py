@@ -1,9 +1,18 @@
-from flask import Flask, render_template, url_for, request, redirect, flash
-from flask_sqlalchemy import SQLAlchemy
-from .forms import SignupForm, LoginForm
-from .models import db, User, Todo
+from flask import redirect, render_template, flash, request, session, url_for
+from flask_login import login_required, logout_user, current_user, login_user
 from flask import current_app as app
-from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
+from .forms import LoginForm, SignupForm
+from .models import db, User, Todo
+from . import login_manager
+
+@login_manager.user_loader
+def load_user(user_id):
+    """Check if user is logged-in on every page load."""
+    if user_id is not None:
+        return User.query.get(user_id)
+    return None
+
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -11,57 +20,69 @@ def signup():
     signup_form = SignupForm()
     if request.method == 'POST':
         new_user = User(
-            user = request.form['email'],
+            username = request.form['email'],
             password = request.form['password']
         )
         db.session.add(new_user)
         db.session.commit()
-        return redirect('/')
+        return redirect('/login')
 
         #if signup_form.validate():
         #    flash('Logged in successfully.')
         #    return render_template('/index.html')
     return render_template('signup.html', form=signup_form)
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """Login Form."""
     login_form = LoginForm()
     if request.method == 'POST':
-        return '<h1>' + request.form['email'] + request.form['password'] + '</h1>'
+        user = User.query.filter(User.username == request.form['email']).first()
+        if user.password == request.form['password']:
+            login_user(user)
+            return 'You are logged in!' # redirect('/dashboard')
     return render_template('login.html', form=login_form)
 
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return 'You are logged out'
+
 @app.route('/dashboard', methods=['POST', 'GET'])
+@login_required
 def index():
     if request.method == 'POST':
         task_content = request.form['content']
-        new_task = Todo(content=task_content)
+        new_task = Todo(content=task_content, username=current_user.username)
 
         try:
             db.session.add(new_task)
             db.session.commit()
-            return redirect('/')
+            return redirect('/dashboard')
         except:
             return 'There was an issue adding your task'
 
     else:
-        tasks = Todo.query.order_by(Todo.date_created).all()
+        tasks = Todo.query.filter(Todo.username == current_user.username).all()
         return render_template('index.html', tasks=tasks)
 
-
 @app.route('/delete/<int:id>')
+@login_required
 def delete(id):
     task_to_delete = Todo.query.get_or_404(id)
 
     try:
         db.session.delete(task_to_delete)
         db.session.commit()
-        return redirect('/')
+        return redirect('/dashboard')
     except:
         return 'There was a problem deleting that task'
 
-
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
+@login_required
 def update(id):
     task = Todo.query.get_or_404(id)
 
@@ -70,9 +91,15 @@ def update(id):
 
         try:
             db.session.commit()
-            return redirect('/')
+            return redirect('/dashboard')
         except:
             return 'There was an issue updating your task'
 
     else:
         return render_template('update.html', task=task)
+
+
+@app.route('/user')
+@login_required
+def home():
+    return 'The Current User is ' + current_user.username

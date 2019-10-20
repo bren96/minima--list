@@ -1,9 +1,10 @@
 from . import db
+from flask_login import UserMixin
 from datetime import datetime
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user = db.Column(db.String(30), nullable=False, unique=True)
+    username = db.Column(db.String(30), nullable=False, unique=True)
     password = db.Column(db.String(15), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -14,7 +15,7 @@ class User(db.Model):
 
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    # user = db.Column(db.String(30), nullable=False)
+    username = db.Column(db.String(30), nullable=False)
     content = db.Column(db.String(200), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
