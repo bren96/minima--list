@@ -1,34 +1,26 @@
-body, html {
-    margin: 0;
-    font-family: ebrima;
-    text-align: center;
+body {
+  margin: 0;
+  font-family: ebrima;
+  text-align: center;
+  background-color: hsla(109, 100%, 75%, 1);
 }
 
 .content {
-    margin: 0 auto;
-    width: 400px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 100vw;
+  height: 100vh;
 }
 
-table, td, th {
-    border: 1px solid #aaa;
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th {
-    height: 30px;
-}
-
-td {
-    text-align: center;
-    padding: 5px;
-}
 
 .form {
-    margin-top: 20px;
+  padding: 2%;
+  width: 60%;
+  border: 1px solid hsla(0, 0%, 71%, 1);
+  border-radius: 50px;
+  background-color: white;
+  margin: auto;
 }
 
 #content {
