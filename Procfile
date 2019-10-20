@@ -1,1 +1,1 @@
-web: python wgsi.py
+web: gunicorn wgsi:create_app
