@@ -10,17 +10,13 @@
       <h1 style="text-align: center">My Five</h1>
       <h2>Log In</h2>
         <form method="POST">
-          <div>
-            {{form.email.label}}
+          <div class="form-container">
+            <i class="fas fa-user"></i>
+            {{form.email(class_="form-control")}}
           </div>
-          <div>
-            {{form.email}}
-          </div>
-          <div>
-            {{form.password.label}}
-          </div>
-          <div>
-            {{form.password}}
+          <div class="form-container">
+            <i class="fas fa-key"></i>
+            {{form.password(class_="form-control")}}
           </div>
           <div class="submitbutton">
             <input id="submit" type="submit" value="Log In">

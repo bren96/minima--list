@@ -2,7 +2,7 @@ body {
   margin: 0;
   font-family: ebrima;
   text-align: center;
-  background-color: hsla(109, 100%, 75%, 1);
+  background-image: linear-gradient(to bottom right, hsl(212, 100%, 50%), hsl(140, 100%, 50%));
 }
 
 .content {
@@ -16,11 +16,32 @@ body {
 
 .form {
   padding: 2%;
-  width: 60%;
   border: 1px solid hsla(0, 0%, 71%, 1);
   border-radius: 50px;
   background-color: white;
   margin: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.form-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto;
+  padding: 8px;
+}
+
+.form-control{
+  flex-grow: 1;
+  /*padding: 10px;*/
+}
+
+i {
+  color: hsl(147, 42%, 35%);
+}
+
+.task_actions{
+  text-decoration: none;
 }
 
 #content {

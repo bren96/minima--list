@@ -11,19 +11,22 @@
     <h4 style="text-align: center">There are no tasks. Create one below!</h4>
     {% else %}
     <table class="form">
-        <tr>
-            <th>Task</th>
-            <th>Added</th>
-            <th>Actions</th>
-        </tr>
+      <tr>
+        <th>Task</th>
+    <!--<th>Added</th>-->
+        <th>Actions</th>
+      </tr>
         {% for task in tasks %}
             <tr>
                 <td>{{ task.content }}</td>
-                <td>{{ task.date_created.date() }}</td>
+                <!--<td>{{ task.date_created.date() }}</td>-->
                 <td>
-                    <a href="/delete/{{task.id}}">Delete</a>
-                    <br>
-                    <a href="/update/{{task.id}}">Update</a>
+                  <a href="/update/{{task.id}}" class="task_actions">
+                    <i class="fas fa-pencil-alt"></i>
+                  </a>
+                  <a href="/delete/{{task.id}}" class="task_actions">
+                    <i class="far fa-trash-alt"></i>
+                  </a>
                 </td>
             </tr>
         {% endfor %}
