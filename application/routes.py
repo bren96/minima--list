@@ -2,7 +2,7 @@ from flask import redirect, render_template, flash, request, session, url_for
 from flask_login import login_required, logout_user, current_user, login_user
 from flask import current_app as app
 from werkzeug.security import generate_password_hash, check_password_hash
-from .forms import LoginForm, SignupForm
+from .forms import SigninForm, SignupForm
 from .models import db, User, Todo
 from . import login_manager
 
@@ -15,7 +15,7 @@ def load_user(user_id):
 
 @app.route('/')
 def base():
-    return redirect('/login')
+    return redirect('/signin')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -28,7 +28,7 @@ def signup():
         )
         db.session.add(new_user)
         db.session.commit()
-        return redirect('/login')
+        return redirect('/signin')
 
         #if signup_form.validate():
         #    flash('Logged in successfully.')
@@ -36,23 +36,23 @@ def signup():
     return render_template('signup.html', form=signup_form)
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
+@app.route('/signin', methods=['GET', 'POST'])
+def signin():
     """Login Form."""
-    login_form = LoginForm()
+    login_form = SigninForm()
     if request.method == 'POST':
         user = User.query.filter(User.username == request.form['email']).first()
         if user.password == request.form['password']:
             login_user(user)
             return redirect('/dashboard')
-    return render_template('login.html', form=login_form)
+    return render_template('signin.html', form=login_form)
 
 
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect('/login')
+    return redirect('/signin')
 
 @app.route('/dashboard', methods=['POST', 'GET'])
 @login_required

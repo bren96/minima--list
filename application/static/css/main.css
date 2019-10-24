@@ -1,8 +1,8 @@
 body {
   margin: 0;
-  font-family: ebrima;
+  font-family: 'Oxygen', sans-serif;
   text-align: center;
-  background-image: linear-gradient(to bottom right, hsl(212, 100%, 50%), hsl(140, 100%, 50%));
+  background-color: hsl(203, 27%, 18%);
 }
 
 .content {
@@ -13,31 +13,66 @@ body {
   height: 100vh;
 }
 
+.sign_logo {
+  letter-spacing: 5px;
+}
+
+.sign_title {
+  margin: auto;
+}
 
 .form {
   padding: 2%;
   border: 1px solid hsla(0, 0%, 71%, 1);
-  border-radius: 50px;
+  border-radius: 8px;
   background-color: white;
   margin: auto;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .form-container{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   margin: auto;
   padding: 8px;
 }
 
 .form-control{
+  text-align: center;
   flex-grow: 1;
+  padding: 12px 20px;
+  padding-bottom: 1px;
+  margin-top: 20px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+
   /*padding: 10px;*/
+}
+#submit{
+  color: white;
+  font-size: 16px;
+  background-color: hsla(212, 100%, 50%, 0.52);
+  padding: 12px 20px;
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+.sign_link{
+  font-size: 12px;
+}
+
+table {
+  margin: auto;
+}
+
+td {
+  padding: 8px;
+  text-align: left;
 }
 
 i {
-  color: hsl(147, 42%, 35%);
+  color: gray;
 }
 
 .task_actions{
@@ -45,5 +80,5 @@ i {
 }
 
 #content {
-    width: 70%;
+    width: 100%;
 }

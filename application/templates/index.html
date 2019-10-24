@@ -6,39 +6,32 @@
 
 {% block body %}
 <div class="content">
-    <h1 style="text-align: center">My Five</h1>
+  <div class="form">
+    <h1>My Five</h1>
     {% if tasks|length < 1 %}
-    <h4 style="text-align: center">There are no tasks. Create one below!</h4>
+    <h4>There are no tasks. Create one below!</h4>
     {% else %}
-    <table class="form">
+    <table>
+      {% for task in tasks %}
       <tr>
-        <th>Task</th>
-    <!--<th>Added</th>-->
-        <th>Actions</th>
+        <td>{{ task.content }}</td>
+        <td>
+          <a href="/update/{{task.id}}" class="task_actions">
+            <i class="fas fa-pencil-alt"></i>
+          </a>
+          <a href="/delete/{{task.id}}" class="task_actions">
+            <i class="far fa-trash-alt"></i>
+          </a>
+        </td>
       </tr>
-        {% for task in tasks %}
-            <tr>
-                <td>{{ task.content }}</td>
-                <!--<td>{{ task.date_created.date() }}</td>-->
-                <td>
-                  <a href="/update/{{task.id}}" class="task_actions">
-                    <i class="fas fa-pencil-alt"></i>
-                  </a>
-                  <a href="/delete/{{task.id}}" class="task_actions">
-                    <i class="far fa-trash-alt"></i>
-                  </a>
-                </td>
-            </tr>
-        {% endfor %}
+      {% endfor %}
     </table>
     {% endif %}
-
-    <div class="form">
-        <form action="/dashboard" method="POST">
-            <input type="text" name="content" id="content">
-            <input type="submit" value="Add Task">
-        </form>
-    </div>
-    <a href="/logout">Log Out</a>
+    <form action="/dashboard" method="POST">
+      <input type="text" name="content" id="content">
+      <input id="submit" type="submit" value="Add Task">
+    </form>
+    <a class="sign_link" href="/logout">Log Out</a>
+  </div>
 </div>
 {% endblock %}

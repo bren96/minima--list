@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>My Five</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <div class="form">
+      <h1 class="sign_logo">My Five</h1>
+      <h2 class="sign_title">Sign In</h2>
+        <form method="POST">
+          <div>
+            {{form.email(class="form-control", placeholder="Username")}}
+          </div>
+          <div>
+            {{form.password(class="form-control", placeholder="Password")}}
+          </div>
+          <div class="submitbutton">
+            <input id="submit" type="submit" value="Sign In">
+          </div>
+        </form>
+        <a href="/signup" class="sign_link">Create an account.</a>
+    </div>
+</div>
+{% endblock %}

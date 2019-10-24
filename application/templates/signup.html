@@ -7,32 +7,17 @@
 {% block body %}
 <div class="content">
     <div class="form">
-      <h1 style="text-align: center">My Five</h1>
-      <h2>Sign Up</h2>
-        <form method="POST">
-          <div>
-            {{form.email.label}}
-          </div>
-          <div>
-            {{form.email(class_="form-control")}}
-          </div>
-          <div>
-            {{form.password.label}}
-          </div>
-          <div>
-            {{form.password(class_="form-control")}}
-          </div>
-          <div>
-            {{form.confirm.label}}
-          </div>
-          <div>
-            {{form.confirm(class_="form-control")}}
-          </div>
+      <h1 class="sign_logo">My Five</h1>
+      <h2 class="sign_title">Sign Up</h2>
+        <form class="form-container" method="POST">
+            {{form.email(class="form-control", placeholder="Email")}}
+            {{form.password(class="form-control", placeholder="Password")}}
+            {{form.confirm(class="form-control", placeholder="Confirm Password")}}
           <div class="submitbutton">
             <input id="submit" type="submit" value="Sign Up">
           </div>
         </form>
-        <a href="/login">Already have an account? Log in here!</a>
+        <a class="sign_link "href="/signin">Already have an account?</a>
     </div>
 </div>
 {% endblock %}

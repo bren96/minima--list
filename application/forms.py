@@ -2,7 +2,7 @@ from wtforms import Form, StringField, PasswordField, validators, SubmitField, S
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 
 class SignupForm(Form):
-    """User Signup Form."""
+    """User Sign Up Form."""
     email = StringField('Email',[
         Length(min=6, message=('Little short for an email address?')),
         Email(message=('That\'s not a valid email address.')),
@@ -20,8 +20,8 @@ class SignupForm(Form):
             raise ValidationError('Please use a different email address.')
 
 
-class LoginForm(Form):
-    """User Login Form."""
+class SigninForm(Form):
+    """User Sign In Form."""
     email = StringField('Email',[
         Email(message=('That\'s not a valid email address.')),
         DataRequired(message=('That\'s not a valid email address.'))])
