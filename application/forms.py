@@ -1,4 +1,4 @@
-from wtforms import Form, StringField, PasswordField, validators, SubmitField, SelectField
+from wtforms import Form, StringField, PasswordField, validators, SubmitField, SelectField, BooleanField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 
 class SignupForm(Form):
@@ -28,3 +28,8 @@ class SigninForm(Form):
     password = PasswordField('Password',
         validators=[DataRequired(message="Please enter a password."),])
     submit = SubmitField('Register')
+
+
+class task_checkbox(Form):
+    """Task Checkbox Form"""
+    checkbox = BooleanField('Checkbox')

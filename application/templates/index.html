@@ -9,27 +9,39 @@
   <div class="form">
     <h1>My Five</h1>
     {% if tasks|length < 1 %}
-    <h4>There are no tasks. Create one below!</h4>
+      <h4>There are no tasks. Create one below!</h4>
     {% else %}
-    <table>
-      {% for task in tasks %}
-      <tr>
-        <td>{{ task.content }}</td>
-        <td>
-          <a href="/update/{{task.id}}" class="task_actions">
+      <form action="/update_notebook" method="POST">
+        <table>
+          {% for task in tasks %}
+          <tr>
+            <td>{{ task.content }}</td>
+            <td>
+              <a href="/check/{{task.id}}">
+                {% if task.check == 1 %}
+                  {{ form.checkbox(checked="checked") }}
+                {% else %}
+                  {{ form.checkbox }}
+                {% endif %}
+              </a>
+          <!--<a href="/update/{{task.id}}" class="task_actions">
+            <p>Edit</p>
             <i class="fas fa-pencil-alt"></i>
           </a>
           <a href="/delete/{{task.id}}" class="task_actions">
+            <p>Delete</p>
             <i class="far fa-trash-alt"></i>
-          </a>
-        </td>
-      </tr>
-      {% endfor %}
-    </table>
+          </a>-->
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+        <input id="submit" type="submit" value="Update Notebook">
+      </form>
     {% endif %}
     <form action="/dashboard" method="POST">
       <input type="text" name="content" id="content">
-      <input id="submit" type="submit" value="Add Task">
+      <!--<input id="submit" type="submit" value="Add Task">-->
     </form>
     <a class="sign_link" href="/logout">Log Out</a>
   </div>
