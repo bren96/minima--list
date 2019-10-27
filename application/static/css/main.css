@@ -1,7 +1,6 @@
 body {
   margin: 0;
   font-family: 'Oxygen', sans-serif;
-  text-align: center;
   background-color: hsl(203, 27%, 18%);
 }
 
@@ -27,6 +26,7 @@ body {
   border-radius: 8px;
   background-color: white;
   margin: auto;
+  min-width: 300px;
 }
 
 .form-container{
@@ -38,9 +38,10 @@ body {
 }
 
 .form-control{
-  text-align: center;
+  width: 100%
   flex-grow: 1;
   padding: 12px 20px;
+  padding-left: 1px;
   padding-bottom: 1px;
   margin-top: 20px;
   border: none;
@@ -48,27 +49,48 @@ body {
 
   /*padding: 10px;*/
 }
-#submit{
-  color: white;
-  font-size: 16px;
-  background-color: hsla(212, 100%, 50%, 0.52);
-  padding: 12px 20px;
-  width: 100%;
+
+.task-form-control{
+  text-align: left;
+  flex-grow: 1;
+  padding-bottom: 1px;
+  margin: auto;
   border: none;
+  border-bottom: 2px solid #ccc;
+  width: 100%;
+
+  /*padding: 10px;*/
+}
+
+#submit{
+  color: hsla(0, 0%, 71%, 1);
+  font-size: 16px;
+  background-color: hsla(0, 0%, 100%, 1);
+  padding: 12px 20px;
+  /*width: 100%;*/
+  border: 2px solid #ccc;
   border-radius: 4px;
   margin-top: 20px;
 }
-.sign_link{
-  font-size: 12px;
+
+#content {
+  width: 100%;
 }
 
-table {
+.sign_link{
   margin: auto;
+  text-align: center;
+  font-size: 12px;
+  padding: 40px;
+  padding-bottom: 0px;
+  flex-grow: 1;
 }
 
 td {
   padding: 8px;
   text-align: left;
+  max-width: 500px;
+  overflow-wrap: break-word;
 }
 
 i {
@@ -77,8 +99,4 @@ i {
 
 .task_actions{
   text-decoration: none;
-}
-
-#content {
-    width: 100%;
 }

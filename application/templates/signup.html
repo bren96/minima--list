@@ -8,7 +8,6 @@
 <div class="content">
     <div class="form">
       <h1 class="sign_logo">My Five</h1>
-      <h2 class="sign_title">Sign Up</h2>
         <form class="form-container" method="POST">
             {{form.email(class="form-control", placeholder="Email")}}
             {{form.password(class="form-control", placeholder="Password")}}
@@ -17,7 +16,9 @@
             <input id="submit" type="submit" value="Sign Up">
           </div>
         </form>
-        <a class="sign_link "href="/signin">Already have an account?</a>
+        <div class="sign_link">
+          <a href="/signin">Already have an account?</a>
+      </div>
     </div>
 </div>
 {% endblock %}
