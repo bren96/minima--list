@@ -9,7 +9,7 @@
   <div class="form">
     <h1>My Five</h1>
       <form action="/dashboard" method="POST">
-        <input type="text" class="task-form-control" name="content" placeholder="Add Task">
+        <input type="text" class="form-control" name="content" placeholder="Add Task">
         <!--<input id="submit" type="submit" value="Add Task">-->
       </form>
       {% if tasks|length == 0 %}
@@ -21,9 +21,9 @@
             <td>
               <a href="/check/{{task.id}}">
                 {% if task.check == 1 %}
-                  {{ form.checkbox(checked="checked") }}
+                  {{ form.checkbox(class="checkbox", checked="checked") }}
                 {% else %}
-                  {{ form.checkbox }}
+                  {{ form.checkbox(class="checkbox") }}
                 {% endif %}
               </a>
           <!--<a href="/update/{{task.id}}" class="task_actions">
