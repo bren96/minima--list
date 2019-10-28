@@ -75,7 +75,10 @@ def index(id):
     notebook_name = notebook.notebook
     if request.method == 'POST':
         task_content = request.form['content']
-        new_task = Todo(content=task_content, username=current_user.username)
+        new_task = Todo(
+            content=task_content,
+            username=current_user.username,
+            notebook=notebook_name)
         try:
             db.session.add(new_task)
             db.session.commit()
@@ -83,7 +86,7 @@ def index(id):
         except:
             return 'There was an issue adding your task'
     else:
-        tasks = Todo.query.filter(Todo.username == current_user.username and Todo.notebook == notebook_name).all()
+        tasks = Todo.query.filter(Todo.username == current_user.username, Todo.notebook == notebook_name).all()
         task_form = taskForm()
         return render_template('index.html', tasks=tasks, form=task_form, notebook=notebook)
 
