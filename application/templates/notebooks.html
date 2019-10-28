@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>My Five</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+  <div class="form">
+    <h1>My Five</h1>
+    <form action="/notebooks" method="POST">
+      <input type="text" class="form-control" name="content" placeholder="Add Notebook">
+      <table>
+        {% for notebook in notebooks %}
+        <tr>
+          <td>
+            <a href="/dashboard/{{notebook.id}}">
+              {{ notebook.notebook }}
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </form>
+    <div class="sign_link">
+      <a href="/logout">Log Out</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

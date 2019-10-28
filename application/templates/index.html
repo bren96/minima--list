@@ -8,18 +8,24 @@
 <div class="content">
   <div class="form">
     <h1>My Five</h1>
-      <form action="/dashboard" method="POST">
+    <p>
+      Notebook:
+    <a href="/notebooks" class="notebook_link">
+      {{notebook.notebook}}
+    </a>
+    </p>
+      <form action="/dashboard/{{notebook.id}}" method="POST">
         <input type="text" class="form-control" name="content" placeholder="Add Task">
         <!--<input id="submit" type="submit" value="Add Task">-->
       </form>
       {% if tasks|length == 0 %}
       {% else %}
-      <form action="/update_notebook" method="POST">
+      <form action="/update_notebook/{{notebook.id}}" method="POST">
         <table>
           {% for task in tasks %}
           <tr>
             <td>
-              <a href="/check/{{task.id}}">
+              <a href="/check/{{task.id}}/{{notebook.id}}">
                 {% if task.check == 1 %}
                   {{ form.checkbox(class="checkbox", checked="checked") }}
                 {% else %}

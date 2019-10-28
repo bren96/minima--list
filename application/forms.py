@@ -30,6 +30,11 @@ class SigninForm(Form):
     submit = SubmitField('Register')
 
 
-class task_checkbox(Form):
+class taskForm(Form):
     """Task Checkbox Form"""
     checkbox = BooleanField('Checkbox')
+
+
+class notebookForm(Form):
+    """Notebook select form"""
+    notebook = BooleanField('Checkbox')
