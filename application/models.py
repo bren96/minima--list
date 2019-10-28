@@ -18,6 +18,7 @@ class Todo(db.Model):
     check = db.Column(db.Boolean(), default=0, nullable=False)
     notebook = db.Column(db.String(30), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
+    completed = db.Column(db.Boolean(), default=0, nullable=False)
 
     def __repr__(self):
         return '<Task %r>' % self.id

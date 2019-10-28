@@ -78,7 +78,8 @@ def index(id):
         new_task = Todo(
             content=task_content,
             username=current_user.username,
-            notebook=notebook_name)
+            notebook=notebook_name,
+            completed = 0)
         try:
             db.session.add(new_task)
             db.session.commit()
@@ -86,7 +87,10 @@ def index(id):
         except:
             return 'There was an issue adding your task'
     else:
-        tasks = Todo.query.filter(Todo.username == current_user.username, Todo.notebook == notebook_name).all()
+        tasks = Todo.query.filter(
+            Todo.username == current_user.username,
+            Todo.notebook == notebook_name,
+            Todo.completed == 0).all()
         task_form = taskForm()
         return render_template('index.html', tasks=tasks, form=task_form, notebook=notebook)
 
@@ -129,18 +133,23 @@ def check(task_id, notebook_id):
         return 'There was an issue updating your task'
     return redirect('/dashboard/' + str(notebook_id))
 
-@app.route('/update_notebook/<int:id>', methods=['GET', 'POST'])
+@app.route('/update_notebook/<int:notebook_id>', methods=['GET', 'POST'])
 @login_required
-def update_notebook(id):
-    tasks = Todo.query.filter(Todo.username == current_user.username).all()
+def update_notebook(notebook_id):
+    notebook = Notebooks.query.get_or_404(notebook_id)
+    notebook_name = notebook.notebook
+    tasks = Todo.query.filter(
+        Todo.username == current_user.username,
+        Todo.notebook == notebook_name,
+        Todo.completed == 0).all()
     if request.method == 'POST':
         for task in tasks:
             if task.check == 1:
-                db.session.delete(task)
+                task.completed = 1
                 db.session.commit()
-        return redirect('/dashboard/' + str(id))
+        return redirect('/dashboard/' + str(notebook_id))
     else:
-        return redirect('/dashboard/' + str(id))
+        return redirect('/dashboard/' + str(notebook_id))
 
 @app.route('/user')
 @login_required
