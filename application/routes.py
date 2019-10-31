@@ -79,7 +79,7 @@ def index(id):
             content=task_content,
             username=current_user.username,
             notebook=notebook_name,
-            completed = 0)
+            completed=0)
         try:
             db.session.add(new_task)
             db.session.commit()
@@ -90,7 +90,7 @@ def index(id):
         tasks = Todo.query.filter(
             Todo.username == current_user.username,
             Todo.notebook == notebook_name,
-            Todo.completed == 0).all()
+            Todo.completed == False).all()
         task_form = taskForm()
         return render_template('index.html', tasks=tasks, form=task_form, notebook=notebook)
 
@@ -123,10 +123,10 @@ def update(id):
 @login_required
 def check(task_id, notebook_id):
     task = Todo.query.get_or_404(task_id)
-    if task.check == 0:
-        task.check = 1
+    if task.check == False:
+        task.check = True
     else:
-        task.check = 0
+        task.check = False
     try:
         db.session.commit()
     except:
@@ -141,11 +141,11 @@ def update_notebook(notebook_id):
     tasks = Todo.query.filter(
         Todo.username == current_user.username,
         Todo.notebook == notebook_name,
-        Todo.completed == 0).all()
+        Todo.completed == False).all()
     if request.method == 'POST':
         for task in tasks:
-            if task.check == 1:
-                task.completed = 1
+            if task.check == True:
+                task.completed = True
                 db.session.commit()
         return redirect('/dashboard/' + str(notebook_id))
     else:
