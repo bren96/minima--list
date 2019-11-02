@@ -21,10 +21,10 @@
       {% if tasks|length == 0 %}
       {% else %}
       <form action="/update_notebook/{{notebook.id}}" method="POST">
-        <table>
+        <table class="task_table">
           {% for task in tasks %}
-          <tr>
-            <td>
+          <tr class="task_row">
+            <td class="task_table_check">
               <a href="/check/{{task.id}}/{{notebook.id}}">
                 {% if task.check == 1 %}
                   {{ form.checkbox(class="checkbox", checked="checked") }}
@@ -32,16 +32,20 @@
                   {{ form.checkbox(class="checkbox") }}
                 {% endif %}
               </a>
-          <!--<a href="/update/{{task.id}}" class="task_actions">
-            <p>Edit</p>
-            <i class="fas fa-pencil-alt"></i>
-          </a>
-          <a href="/delete/{{task.id}}" class="task_actions">
-            <p>Delete</p>
-            <i class="far fa-trash-alt"></i>
-          </a>-->
             </td>
-            <td>{{ task.content }}</td>
+            <td class="task_table_content">
+              {{ task.content }}
+            </td>
+            <td class="task_table_edit">
+              <a href="/update/{{task.id}}/{{notebook.id}}" class="task_actions">
+                <i class="fas fa-pencil-alt"></i>
+              </a>
+            </td>
+            <td class="task_table_edit">
+              <a href="/delete/{{task.id}}/{{notebook.id}}" class="task_actions">
+                <i class="far fa-trash-alt"></i>
+              </a>
+            </td>
           </tr>
           {% endfor %}
         </table>

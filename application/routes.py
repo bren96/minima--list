@@ -90,34 +90,63 @@ def index(id):
         tasks = Todo.query.filter(
             Todo.username == current_user.username,
             Todo.notebook == notebook_name,
-            Todo.completed == False).all()
+            Todo.completed == False).order_by(Todo.date_created).all()
         task_form = taskForm()
         return render_template('index.html', tasks=tasks, form=task_form, notebook=notebook)
 
-@app.route('/delete/<int:id>')
+@app.route('/delete/<int:task_id>/<int:notebook_id>')
 @login_required
-def delete(id):
-    task_to_delete = Todo.query.get_or_404(id)
+def delete(task_id, notebook_id):
+    task_to_delete = Todo.query.get_or_404(task_id)
     try:
         db.session.delete(task_to_delete)
         db.session.commit()
-        return redirect('/dashboard/' + str(id))
+        return redirect('/dashboard/' + str(notebook_id))
     except:
         return 'There was a problem deleting that task'
 
-@app.route('/update/<int:id>', methods=['GET', 'POST'])
+@app.route('/update/<int:task_id>/<int:notebook_id>', methods=['GET', 'POST'])
 @login_required
-def update(id):
-    task = Todo.query.get_or_404(id)
-    if request.method == 'POST':
-        task.content = request.form['content']
-        try:
-            db.session.commit()
-            return redirect('/dashboard/' + str(id))
-        except:
-            return 'There was an issue updating your task'
+def update(task_id, notebook_id):
+    if task_id == 0:
+        notebook = Notebooks.query.get_or_404(notebook_id)
+        content = notebook.notebook
+        if request.method == 'POST':
+            notebook.notebook = request.form['content']
+            tasks = Todo.query.filter(Todo.notebook == content).all()
+            for each in tasks:
+                each.notebook = notebook.notebook
+                db.session.commit
+            try:
+                db.session.commit()
+                return redirect('/notebooks')
+            except:
+                return "There was an issue updating your notebook"
+        else:
+            return render_template(
+                'update.html',
+                task=task_id,
+                notebook=notebook,
+                content=content
+            )
     else:
-        return render_template('update.html', task=task)
+        task = Todo.query.get_or_404(task_id)
+        notebook = Notebooks.query.get_or_404(notebook_id)
+        content = task.content
+        if request.method == 'POST':
+            task.content = request.form['content']
+            try:
+                db.session.commit()
+                return redirect('/dashboard/' + str(notebook_id))
+            except:
+                return 'There was an issue updating your task'
+        else:
+            return render_template(
+                'update.html',
+                task=task_id,
+                notebook=notebook,
+                content=content
+            )
 
 @app.route('/check/<int:task_id>/<int:notebook_id>', methods=['GET', 'POST'])
 @login_required

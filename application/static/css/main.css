@@ -94,6 +94,13 @@ body {
   color: hsla(0, 0%, 41%, 1);
 }
 
+td {
+  padding: 8px;
+  text-align: left;
+  max-width: 500px;
+  overflow-wrap: break-word;
+}
+
 .notebook_link{
   color: hsla(0, 0%, 71%, 1);
 }
@@ -102,11 +109,37 @@ body {
   color: hsla(0, 0%, 41%, 1);
 }
 
-td {
-  padding: 8px;
-  text-align: left;
-  max-width: 500px;
-  overflow-wrap: break-word;
+
+.notebook_table_row a i{
+  color: white;
+}
+
+.notebook_table_row:hover a {
+  color: hsla(0, 0%, 41%, 1);
+}
+
+.notebook_table_row:hover a i {
+  color: hsla(0, 0%, 41%, 1);
+}
+
+.task_table{
+  width: 100%;
+}
+
+.task_row a i{
+  color: white;
+}
+
+.task_row:hover a i{
+  color: hsla(0, 0%, 41%, 1);
+}
+
+.task_table_content{
+  width: 75%;
+}
+
+.task_table_edit:hover a i{
+  color: hsla(0, 0%, 21%, 1);
 }
 
 .checkbox{
