@@ -2,7 +2,6 @@
 ## project to do notes:
  terms of service
  compile all completed tasks per notebooks
- cross off tasks animation
 
 # Project Title
 

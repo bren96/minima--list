@@ -33,9 +33,15 @@
                 {% endif %}
               </a>
             </td>
-            <td class="task_table_content">
+            {% if task.check == 1 %}
+            <td class="task_table_content_checked">
               {{ task.content }}
             </td>
+            {% else %}
+            <td class="task_table_content">
+              {{ task.content  }}
+            </td>
+            {% endif %}
             <td class="task_table_edit">
               <a href="/update/{{task.id}}/{{notebook.id}}" class="task_actions">
                 <i class="fas fa-pencil-alt"></i>

@@ -126,6 +126,10 @@ td {
   width: 100%;
 }
 
+.task_table_check{
+  width: 25px;
+}
+
 .task_row a i{
   color: white;
 }
@@ -136,6 +140,12 @@ td {
 
 .task_table_content{
   width: 75%;
+}
+
+.task_table_content_checked{
+  width: 75%;
+  color: hsl(0, 100%, 71%);
+  text-decoration: line-through;
 }
 
 .task_table_edit:hover a i{
