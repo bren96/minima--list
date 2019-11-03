@@ -72,27 +72,30 @@ def notebook():
 @login_required
 def index(id):
     notebook = Notebooks.query.get_or_404(id)
-    notebook_name = notebook.notebook
-    if request.method == 'POST':
-        task_content = request.form['content']
-        new_task = Todo(
-            content=task_content,
-            username=current_user.username,
-            notebook=notebook_name,
-            completed=0)
-        try:
-            db.session.add(new_task)
-            db.session.commit()
-            return redirect('/dashboard/' + str(id))
-        except:
-            return 'There was an issue adding your task'
+    if notebook.username == current_user.username:
+        notebook_name = notebook.notebook
+        if request.method == 'POST':
+            task_content = request.form['content']
+            new_task = Todo(
+                content=task_content,
+                username=current_user.username,
+                notebook=notebook_name,
+                completed=0)
+            try:
+                db.session.add(new_task)
+                db.session.commit()
+                return redirect('/dashboard/' + str(id))
+            except:
+                return 'There was an issue adding your task'
+        else:
+            tasks = Todo.query.filter(
+                Todo.username == current_user.username,
+                Todo.notebook == notebook_name,
+                Todo.completed == False).order_by(Todo.date_created).all()
+            task_form = taskForm()
+            return render_template('index.html', tasks=tasks, form=task_form, notebook=notebook)
     else:
-        tasks = Todo.query.filter(
-            Todo.username == current_user.username,
-            Todo.notebook == notebook_name,
-            Todo.completed == False).order_by(Todo.date_created).all()
-        task_form = taskForm()
-        return render_template('index.html', tasks=tasks, form=task_form, notebook=notebook)
+        'Hmmm...This isnt your notebook'
 
 @app.route('/delete/<int:task_id>/<int:notebook_id>')
 @login_required
