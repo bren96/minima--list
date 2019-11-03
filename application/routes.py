@@ -97,13 +97,25 @@ def index(id):
 @app.route('/delete/<int:task_id>/<int:notebook_id>')
 @login_required
 def delete(task_id, notebook_id):
-    task_to_delete = Todo.query.get_or_404(task_id)
-    try:
-        db.session.delete(task_to_delete)
-        db.session.commit()
-        return redirect('/dashboard/' + str(notebook_id))
-    except:
-        return 'There was a problem deleting that task'
+    if task_id == 0:
+        notebook = Notebooks.query.get_or_404(notebook_id)
+        notebooks_tasks = Todo.query.filter(Todo.notebook == notebook.notebook).all()
+        try:
+            for each in notebooks_tasks:
+                db.session.delete(each)
+            db.session.delete(notebook)
+            db.session.commit()
+            return redirect('/notebooks')
+        except:
+            return 'There was a problem deleting that notebook'
+    else:
+        task_to_delete = Todo.query.get_or_404(task_id)
+        try:
+            db.session.delete(task_to_delete)
+            db.session.commit()
+            return redirect('/dashboard/' + str(notebook_id))
+        except:
+            return 'There was a problem deleting that task'
 
 @app.route('/update/<int:task_id>/<int:notebook_id>', methods=['GET', 'POST'])
 @login_required
