@@ -1,6 +1,5 @@
 # myfive_flask
 ## project to do notes:
- user security (my dads notebook example)
  terms of service
  compile all completed tasks per notebooks
  cross off tasks animation
