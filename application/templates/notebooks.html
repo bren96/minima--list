@@ -1,40 +1,42 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>My Five</title>
+<title>
+  {{title}}
+</title>
 {% endblock %}
 
 {% block body %}
-<div class="content">
-  <div class="form">
-    <h1>My Five</h1>
-    <form action="/notebooks" method="POST">
-      <input type="text" class="form-control" name="content" placeholder="Add Notebook">
-      <table class="task_table">
-        {% for notebook in notebooks %}
-        <tr class="notebook_table_row">
-          <td class="task_table_content">
-            <a class="notebook_link" href="/dashboard/{{notebook.id}}">
-              {{ notebook.notebook }}
-            </a>
-          </td>
-          <td class="task_table_edit">
-            <a href="/update/0/{{notebook.id}}" class="task_actions">
-              <i class="fas fa-pencil-alt"></i>
-            </a>
-          </td>
-          <td class="task_table_edit">
-            <a href="/delete/0/{{notebook.id}}" class="task_actions">
-              <i class="far fa-trash-alt"></i>
-            </a>
-          </td>
-        </tr>
-        {% endfor %}
-      </table>
-    </form>
-    <div class="sign_link">
-      <a href="/logout">Log Out</a>
-    </div>
+<div class="form">
+  <h1 class="logo">
+    minima--list
+  </h1>
+  <form class="form-container" action="/notebooks" method="POST">
+    <input type="text" class="form-control" name="content" placeholder="Add Notebook">
+    <table class="task_table">
+      {% for notebook in notebooks %}
+      <tr class="notebook_table_row">
+        <td class="task_table_content">
+          <a class="notebook_link" href="/dashboard/{{notebook.id}}">
+            {{ notebook.notebook }}
+          </a>
+        </td>
+        <td class="task_table_edit">
+          <a href="/update/0/{{notebook.id}}" class="task_actions">
+            <i class="fas fa-pencil-alt"></i>
+          </a>
+        </td>
+        <td class="task_table_edit">
+          <a href="/delete/0/{{notebook.id}}" class="task_actions">
+            <i class="far fa-trash-alt"></i>
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </form>
+  <div class="sign_link">
+    <a href="/logout">Log Out</a>
   </div>
 </div>
 {% endblock %}

@@ -1,23 +1,25 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>My Five</title>
+<title>
+  {{title}}
+</title>
 {% endblock %}
 
 {% block body %}
-<div class="content">
-    <div class="form">
-      <h1 class="sign_logo">My Five</h1>
-        <form class="form-container" method="POST">
-          {{form.email(class="form-control", placeholder="Username")}}
-          {{form.password(class="form-control", placeholder="Password")}}
-          <div class="submitbutton">
-            <input id="submit" type="submit" value="Sign In">
-          </div>
-        </form>
-        <div class="sign_link">
-          <a href="/signup">Create an account.</a>
+<div class="form">
+    <h1 class="logo">
+      minima--list
+    </h1>
+    <form class="form-container" method="POST">
+      {{form.email(class="form-control", placeholder="Username")}}
+      {{form.password(class="form-control", placeholder="Password")}}
+      <div class="submitbutton">
+        <input id="submit" type="submit" value="Sign In">
       </div>
-    </div>
+    </form>
+    <div class="sign_link">
+      <a href="/signup">Create an account.</a>
+  </div>
 </div>
 {% endblock %}

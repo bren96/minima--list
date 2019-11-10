@@ -6,6 +6,14 @@ from .forms import SigninForm, SignupForm, taskForm, notebookForm
 from .models import db, User, Todo, Notebooks
 from . import login_manager
 
+
+app_name = "minima--list"
+def page_title(name):
+    page = app_name + " | " + name
+    return page
+
+
+
 @login_manager.user_loader
 def load_user(user_id):
     """Check if user is logged-in on every page load."""
@@ -20,6 +28,7 @@ def base():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     """Signup Form."""
+    title = page_title('Sign Up')
     signup_form = SignupForm()
     if request.method == 'POST':
         new_user = User(
@@ -32,18 +41,27 @@ def signup():
         #if signup_form.validate():
         #    flash('Logged in successfully.')
         #    return render_template('/index.html')
-    return render_template('signup.html', form=signup_form)
+    return render_template(
+        'signup.html',
+        form=signup_form,
+        title=title
+    )
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
     """Login Form."""
+    title = page_title('Sign In')
     login_form = SigninForm()
     if request.method == 'POST':
         user = User.query.filter(User.username == request.form['email']).first()
         if user.password == request.form['password']:
             login_user(user)
             return redirect('/notebooks')
-    return render_template('signin.html', form=login_form)
+    return render_template(
+        'signin.html',
+        form=login_form,
+        title=title
+    )
 
 @app.route('/logout')
 @login_required
@@ -54,6 +72,7 @@ def logout():
 @app.route('/notebooks', methods=['POST', 'GET'])
 @login_required
 def notebook():
+    title = page_title('Notebooks')
     if request.method == 'POST':
         notebook_name = request.form['content']
         new_notebook = Notebooks(notebook=notebook_name, username=current_user.username)
@@ -66,11 +85,16 @@ def notebook():
 
     else:
         notebooks = Notebooks.query.filter(Notebooks.username == current_user.username)
-        return render_template('notebooks.html', notebooks=notebooks)
+        return render_template(
+            'notebooks.html',
+            notebooks=notebooks,
+            title=title
+        )
 
 @app.route('/dashboard/<int:id>', methods=['POST', 'GET'])
 @login_required
 def index(id):
+    title = page_title('Tasks')
     notebook = Notebooks.query.get_or_404(id)
     if notebook.username == current_user.username:
         notebook_name = notebook.notebook
@@ -93,7 +117,13 @@ def index(id):
                 Todo.notebook == notebook_name,
                 Todo.completed == False).order_by(Todo.date_created).all()
             task_form = taskForm()
-            return render_template('index.html', tasks=tasks, form=task_form, notebook=notebook)
+            return render_template(
+                'index.html',
+                tasks=tasks,
+                form=task_form,
+                notebook=notebook,
+                title=title
+            )
     else:
         'Hmmm...This isnt your notebook'
 
@@ -123,6 +153,7 @@ def delete(task_id, notebook_id):
 @app.route('/update/<int:task_id>/<int:notebook_id>', methods=['GET', 'POST'])
 @login_required
 def update(task_id, notebook_id):
+    title = page_title('Update')
     if task_id == 0:
         notebook = Notebooks.query.get_or_404(notebook_id)
         content = notebook.notebook
@@ -142,7 +173,8 @@ def update(task_id, notebook_id):
                 'update.html',
                 task=task_id,
                 notebook=notebook,
-                content=content
+                content=content,
+                title=title
             )
     else:
         task = Todo.query.get_or_404(task_id)
@@ -160,7 +192,8 @@ def update(task_id, notebook_id):
                 'update.html',
                 task=task_id,
                 notebook=notebook,
-                content=content
+                content=content,
+                title=title
             )
 
 @app.route('/check/<int:task_id>/<int:notebook_id>', methods=['GET', 'POST'])
@@ -180,6 +213,7 @@ def check(task_id, notebook_id):
 @app.route('/update_notebook/<int:notebook_id>', methods=['GET', 'POST'])
 @login_required
 def update_notebook(notebook_id):
+    title = page_title('Update')
     notebook = Notebooks.query.get_or_404(notebook_id)
     notebook_name = notebook.notebook
     tasks = Todo.query.filter(

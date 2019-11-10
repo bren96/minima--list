@@ -1,66 +1,71 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>My Five</title>
+<title>
+  {{title}}
+</title>
 {% endblock %}
 
 {% block body %}
-<div class="content">
-  <div class="form">
-    <h1>My Five</h1>
-    <p>
-      Notebook:
-    <a href="/notebooks" class="notebook_link">
-      {{notebook.notebook}}
-    </a>
-    </p>
-      <form action="/dashboard/{{notebook.id}}" method="POST">
-        <input type="text" class="form-control" name="content" placeholder="Add Task">
-        <!--<input id="submit" type="submit" value="Add Task">-->
-      </form>
-      {% if tasks|length == 0 %}
-      {% else %}
-      <form action="/update_notebook/{{notebook.id}}" method="POST">
-        <table class="task_table">
-          {% for task in tasks %}
-          <tr class="task_row">
-            <td class="task_table_check">
-              <a href="/check/{{task.id}}/{{notebook.id}}">
-                {% if task.check == 1 %}
-                  {{ form.checkbox(class="checkbox", checked="checked") }}
-                {% else %}
-                  {{ form.checkbox(class="checkbox") }}
-                {% endif %}
-              </a>
-            </td>
-            {% if task.check == 1 %}
-            <td class="task_table_content_checked">
-              {{ task.content }}
-            </td>
-            {% else %}
-            <td class="task_table_content">
-              {{ task.content  }}
-            </td>
-            {% endif %}
-            <td class="task_table_edit">
-              <a href="/update/{{task.id}}/{{notebook.id}}" class="task_actions">
-                <i class="fas fa-pencil-alt"></i>
-              </a>
-            </td>
-            <td class="task_table_edit">
-              <a href="/delete/{{task.id}}/{{notebook.id}}" class="task_actions">
-                <i class="far fa-trash-alt"></i>
-              </a>
-            </td>
-          </tr>
-          {% endfor %}
-        </table>
-        <input id="submit" type="submit" value="Update Notebook">
-      </form>
-      {% endif %}
-    <div class="sign_link">
-    <a href="/logout">Log Out</a>
-    </div>
+<title>
+  {{title}}
+</title>
+<div class="form">
+  <h1 class="logo">
+    minima--list
+  </h1>
+  <p>
+    Notebook:
+  <a href="/notebooks" class="notebook_link">
+    {{notebook.notebook}}
+  </a>
+  </p>
+    <form action="/dashboard/{{notebook.id}}" method="POST">
+      <input type="text" class="form-control" name="content" placeholder="Add Task">
+      <!--<input id="submit" type="submit" value="Add Task">-->
+    </form>
+    {% if tasks|length == 0 %}
+    {% else %}
+    <form action="/update_notebook/{{notebook.id}}" method="POST">
+      <table class="task_table">
+        {% for task in tasks %}
+        <tr class="task_row">
+          <td class="task_table_check">
+            <a href="/check/{{task.id}}/{{notebook.id}}">
+              {% if task.check == 1 %}
+                {{ form.checkbox(class="checkbox", checked="checked") }}
+              {% else %}
+                {{ form.checkbox(class="checkbox") }}
+              {% endif %}
+            </a>
+          </td>
+          {% if task.check == 1 %}
+          <td class="task_table_content_checked">
+            {{ task.content }}
+          </td>
+          {% else %}
+          <td class="task_table_content">
+            {{ task.content  }}
+          </td>
+          {% endif %}
+          <td class="task_table_edit">
+            <a href="/update/{{task.id}}/{{notebook.id}}" class="task_actions">
+              <i class="fas fa-pencil-alt"></i>
+            </a>
+          </td>
+          <td class="task_table_edit">
+            <a href="/delete/{{task.id}}/{{notebook.id}}" class="task_actions">
+              <i class="far fa-trash-alt"></i>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      <input id="submit" type="submit" value="Update Notebook">
+    </form>
+    {% endif %}
+  <div class="sign_link">
+  <a href="/logout">Log Out</a>
   </div>
 </div>
 {% endblock %}
